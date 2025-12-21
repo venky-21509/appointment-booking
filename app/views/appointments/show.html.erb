@@ -1,0 +1,26 @@
+<h1>Appointments Details </h1>
+
+<h3> Change Status </h3>
+<%= render "status_actions", appointment: @appointment %>
+
+<p><strong>Date & Time:</strong>
+<%= @appointment.time %>
+</p>
+
+<p><strong>Status:</strong>
+<%= render "status", appointment: @appointment %>
+
+
+<p><strong>Package:</strong>
+<%= @appointment.package %></p>
+
+<p><strong>Provider:</strong>
+<%= @appointment.provider %></p>
+
+<p><strong>unique_id:</strong>
+<%= @appointment.unique_id %></p>
+
+
+
+<%= link_to "Back", appointments_path %>
+

@@ -1,0 +1,68 @@
+<h1> Appointments </h1>
+
+<%= form_with url: appointments_path, method: :get, local: true do %>
+<%= text_field_tag :search, params[:search], placeholder: "Search by Unique ID/ Provider / Package / Status" %>
+<%= submit_tag "Search" %>
+<% end %>
+<br>
+
+<%= link_to "New Appointment", new_appointment_path  %> 
+<br> 
+
+<table border= "1" cellspacing = "3" cellpadding = "6" >
+
+    <thead>
+        <tr>
+            <th>S.No </th>
+            <th> Date & Time </th>
+            <th> Status </th>
+            <th>  Package </th>
+            <th> Provider </th>
+            <th> Unique_id </th>
+            <th> Actions </th>
+
+            </tr>
+            </thead>
+
+            <tbody> 
+
+         <% @appointments.each_with_index do |p, index| %>
+         <tr>
+            <td><%= index+1 %> </td>
+            <td><%= p.time %> </td>    
+            <td><%= render "status", appointment: p %></td>
+          
+            <td><%= p.package %> </td>   
+            <td><%= p.provider%> </td> 
+            <td><%= p.unique_id %> </td>   
+
+            <td>
+  <%= link_to "View", appointment_path(p) %> |
+  <%= link_to "Edit", edit_appointment_path(p) %>
+
+  <br><br>
+
+  <%= render "status_actions", appointment: p %>
+
+  <br><br>
+
+  <%= button_to "Delete", appointment_path(p),
+        method: :delete,
+        data: { confirm: "Are you sure?" } %>
+       </td>
+
+         </tr>
+            <% end %> 
+            
+
+            </tbody> 
+
+</table>
+
+<br>
+<br>
+<%= paginate @appointments %>
+
+
+
+

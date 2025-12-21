@@ -1,0 +1,27 @@
+<%= form_with(model: @appointment, local: true) do|f| %>
+
+<div><%= f.label :time, "Date & Time" %><br>
+<%= f.datetime_select :time %>
+</div>
+
+<div> <%= f.label :status %><br>
+<%= f.text_field :status %> 
+</div>
+
+<div> <%= f.label :package %><br>
+<%= f.text_field :package %> 
+</div>
+
+<div> <%= f.label :provider %><br>
+<%= f.text_field :provider %> 
+</div>
+
+<div> <%= f.label :unique_id %><br>
+<%= f.text_field :unique_id %> 
+</div>
+
+<div>
+    <%= f.submit %>
+</div>
+<%  end  %>
+
