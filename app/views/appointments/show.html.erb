@@ -1,0 +1,38 @@
+<h1>Appointments Details </h1>
+
+<h3> Change Status </h3>
+<%= render "status_actions", appointment: @appointment %>
+
+<p><strong>Date & Time:</strong>
+<%= @appointment.time %>
+</p>
+
+<p><strong>Status:</strong>
+<%= render "status", appointment: @appointment %>
+
+
+<p><strong>Package:</strong>
+<%= @appointment.package %></p>
+
+<p><strong>Provider:</strong>
+<%= @appointment.provider %></p>
+
+<p><strong>unique_id:</strong>
+<%= @appointment.unique_id %></p>
+
+<p>
+  <strong>Attachment:</strong>
+  <% if @appointment.attachment? %>
+    <% if @appointment.attachment.content_type&.start_with?('image') %>
+      <%= image_tag @appointment.attachment.url, width: 300,height: 200 %>
+    <% else %>
+      <%= link_to @appointment.attachment.filename, @appointment.attachment.url %>
+    <% end %>
+  <% else %>
+    No attachment uploaded.
+  <% end %>
+</p>
+
+
+<%= link_to "Back", appointments_path %>
+

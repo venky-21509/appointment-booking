@@ -1,0 +1,40 @@
+<%= form_with(model: @appointment, local: true, html: { multipart: true }) do |f| %>
+
+  <% if @appointment.errors.any? %>
+    <div style="color: red;">
+      <ul>
+        <% @appointment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :time, "Date & Time" %><br>
+    <%= f.datetime_select :time %>
+  </div>
+
+  <div>
+    <%= f.label :package %><br>
+    <%= f.select :package,
+        Appointment::PACKAGE_OPTIONS,
+        prompt: "Select Package" %>
+  </div>
+
+  <div>
+    <%= f.label :provider %><br>
+    <%= f.select :provider,
+        Appointment::PROVIDER_OPTIONS,
+        prompt: "Select Provider" %>
+  </div>
+
+  <div>
+    <%= f.label :attachment %><br>
+    <%= f.file_field :attachment %>
+  </div>
+
+  <br>
+  <%= f.submit "Create Appointment" %>
+
+<% end %>

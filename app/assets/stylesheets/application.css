@@ -1,0 +1,114 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+}
+
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+
+.navbar {
+  background-color: #2c3e50;
+  color: white;
+  padding: 15px;
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.appointments-table th {
+  background-color: #34495e;
+  color: white;
+}
+
+
+.status {
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: white;
+  font-size: 13px;
+}
+
+.status.new { background: gray; }
+.status.confirmed { background: blue; }
+.status.completed { background: green; }
+.status.received { background: teal; }
+.status.cancelled { background: red; }
+
+
+button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  background: rgb(80, 76, 76);
+  color: white;
+  cursor: pointer;
+}
+
+
+form div {
+  margin-bottom: 15px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 6px;
+}
+
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination .current {
+  background: #2c3e50;
+  color: white;
+  padding: 6px 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+.btn-csv {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-csv:hover {
+    background-color: #219150;
+}
