@@ -1,24 +1,32 @@
-# README
+# Appointment Booking System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A full-stack web application built using **Ruby on Rails** to manage and schedule appointments.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🚀 Features
+- User authentication and authorization
+- Role-based access control
+- Appointment creation, confirmation, cancellation
+- Appointment status workflow
+- MVC architecture
+- RESTful routing
+- ActiveRecord ORM
+- PostgreSQL database
 
-* System dependencies
+---
 
-* Configuration
+## 🛠️ Tech Stack
+- Ruby
+- Ruby on Rails
+- PostgreSQL
+- HTML, CSS, Bootstrap
+- Git & GitHub
 
-* Database creation
+---
 
-* Database initialization
+## ⚙️ Installation & Setup
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone the repository
+```bash
+git clone https://github.com/venky-21509/appointment-booking
