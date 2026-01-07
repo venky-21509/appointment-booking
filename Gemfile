@@ -47,7 +47,7 @@ gem "carrierwave", "2.1.1"
 gem "mimemagic", "0.4.3"
 
 
-gem "sidekiq", "~> 7.3"
+gem "sidekiq", "~> 8.0"
 gem "connection_pool", "~> 2.5"
 
 # -------------------------
