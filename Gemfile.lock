@@ -108,7 +108,7 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     concurrent-ruby (1.3.6)
-    connection_pool (2.5.5)
+    connection_pool (3.0.2)
     crass (1.0.6)
     date (3.5.1)
     debug (1.11.0)
@@ -374,12 +374,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sidekiq (7.3.10)
+    sidekiq (7.3.9)
       base64
-      connection_pool (>= 2.3.0, < 3)
+      connection_pool (>= 2.3.0)
       logger
-      rack (>= 2.2.4, < 3.3)
-      redis-client (>= 0.23.0, < 1)
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -467,7 +467,7 @@ DEPENDENCIES
   brakeman
   capybara
   carrierwave (= 2.1.1)
-  connection_pool (~> 2.5)
+  connection_pool (~> 3.0)
   debug
   devise (~> 4.9)
   factory_bot_rails
