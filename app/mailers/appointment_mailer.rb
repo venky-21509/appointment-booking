@@ -1,5 +1,6 @@
 class AppointmentMailer < ApplicationMailer
-  default from: "venkeypothem67@gmail.com"  
+  default from: "venkeypothem21@gmail.com"  
+  
   def appointment_created
     @appointment = params[:appointment] 
     @customer = @appointment.customer
