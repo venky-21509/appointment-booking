@@ -52,7 +52,7 @@ Rails.application.configure do
 
   # 3. Solid Cable
   config.action_cable.adapter = :solid_cable
-  config.solid_cable.connects_to = { database: { writing: :cable, reading: :cable } }
+ 
 
   # -------------------------------------
 
