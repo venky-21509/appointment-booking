@@ -29,14 +29,13 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-  @appointment = Appointment.new(appointment_params)
-  @appointment.customer = current_customer
+  
+    @appointment = current_customer.appointments.build(appointment_params)
 
   begin
     if @appointment.save
-     # AppointmentWorker.perform_async(@appointment.id)
-     AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later 
-     redirect_to appointments_path, notice: "Saved successfully"
+      AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later 
+      redirect_to appointments_path, notice: "Saved successfully"
     else
       render :new, status: :unprocessable_entity
     end
@@ -45,6 +44,8 @@ class AppointmentsController < ApplicationController
     render :new, status: :unprocessable_entity
   end
 end
+
+    
 
 
   def edit
