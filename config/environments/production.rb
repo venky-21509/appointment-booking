@@ -49,8 +49,9 @@ Rails.application.configure do
   config.active_job.queue_adapter = :solid_queue
 
   # 3. Solid Cable
-  config.action_cable.adapter = :solid_cable
- 
+ config.action_cable.mount_path = nil
+  config.action_cable.url = nil
+  config.action_cable.allowed_request_origins = [ /http.*/ ]
 
   # -------------------------------------
 
