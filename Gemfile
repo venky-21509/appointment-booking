@@ -84,4 +84,4 @@ group :development do
   gem "web-console"
 end
 
-gem 'appointment_guard', path: '../appointment_guard'
+gem 'appointment_guard', git: 'https://github.com/venky-21509/appointment_guard.git'
