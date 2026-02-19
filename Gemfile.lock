@@ -483,6 +483,9 @@ DEPENDENCIES
   kaminari
   letter_opener
   mimemagic (= 0.4.3)
+  net-imap
+  net-pop
+  net-smtp
   pg
   propshaft
   puma (>= 5.0)

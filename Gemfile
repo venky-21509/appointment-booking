@@ -86,3 +86,7 @@ group :development do
 end
 
 gem 'appointment_guard', git: 'https://github.com/venky-21509/appointment_guard.git'
+
+gem "net-smtp"
+gem "net-imap"
+gem "net-pop"
