@@ -18,5 +18,9 @@ test:
   host: 127.0.0.1
 
 production:
-  <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    <<: *default
+    database: appointment_booking_production
+  cable:
+    <<: *default
+    database: appointment_booking_cable_production
