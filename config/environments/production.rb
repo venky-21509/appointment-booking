@@ -44,11 +44,9 @@ Rails.application.configure do
 
   # 1. Solid Cache
   config.cache_store = :solid_cache_store
-  config.solid_cache.connects_to = { database: { writing: :cache, reading: :cache } }
 
   # 2. Solid Queue
   config.active_job.queue_adapter = :solid_queue
-  config.solid_queue.connects_to = { database: { writing: :queue, reading: :queue } }
 
   # 3. Solid Cable
   config.action_cable.adapter = :solid_cable
