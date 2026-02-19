@@ -48,7 +48,7 @@ gem "mimemagic", "0.4.3"
 
 
 gem "sidekiq", "~> 7.3"
-gem "connection_pool", "~> 2.5"
+gem "connection_pool", "~> 3.0"
 
 # -------------------------
 # Development & Test
