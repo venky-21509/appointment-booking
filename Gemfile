@@ -43,7 +43,7 @@ gem "kaminari"
 gem "aasm"
 
 
-gem "carrierwave", "2.1.1"
+gem "carrierwave", "3.1.2"
 gem "mimemagic", "0.4.3"
 
 
