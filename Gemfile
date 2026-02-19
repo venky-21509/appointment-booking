@@ -82,6 +82,7 @@ end
 # -------------------------
 group :development do
   gem "web-console"
+  gem "letter_opener"
 end
 
 gem 'appointment_guard', git: 'https://github.com/venky-21509/appointment_guard.git'

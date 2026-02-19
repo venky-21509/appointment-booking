@@ -10,7 +10,7 @@
 
 require 'faker'
 
-50.times do 
+5.times do 
   Appointment.create(
  time: Faker::Time.between(from: 1.month.ago, to: Time.now),
  status: ["New","confirmed","completed","recieved","cancelled"].sample,

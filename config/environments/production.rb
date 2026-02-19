@@ -57,7 +57,20 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "appointment-booking-yr62.onrender.com" }
- config.action_mailer.delivery_method = :test
+ config.action_mailer.delivery_method = :smtp
+ config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            ENV['SMTP_USERNAME'],
+    password:             ENV['SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
+
   # Enable locale fallbacks for I18n.
   config.i18n.fallbacks = true
 
