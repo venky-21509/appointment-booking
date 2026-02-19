@@ -30,7 +30,12 @@
          <% @appointments.each_with_index do |p, index| %>
          <tr>
             <td><%= index+1 %> </td>
-            <td><%= p.time %> </td>    
+
+            <td class="date-time">
+  <%= p.time.strftime("%d %b %Y, %I:%M %p") if p.time.present? %>
+</td>
+
+
             <td><%= render "status", appointment: p %></td>
           
             <td><%= p.package %> </td>   

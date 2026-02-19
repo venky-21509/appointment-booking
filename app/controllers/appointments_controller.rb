@@ -29,16 +29,21 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = Appointment.new(appointment_params)
+  @appointment = Appointment.new(appointment_params)
+
+  begin
     if @appointment.save
       AppointmentWorker.perform_async(@appointment.id)
-      redirect_to appointments_path, notice: "saved successfully"
+      redirect_to appointments_path, notice: "Saved successfully"
     else
-      Rails.logger.debug @appointment.errors.full_messages 
-
-      render :new, status: :unprocessable_entity 
+      render :new, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotUnique
+    @appointment.errors.add(:time, "slot already booked")
+    render :new, status: :unprocessable_entity
   end
+end
+
 
   def edit
   end

@@ -1,3 +1,8 @@
+PATH
+  remote: ../appointment_guard
+  specs:
+    appointment_guard (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -463,6 +468,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  appointment_guard!
   bootsnap
   brakeman
   capybara

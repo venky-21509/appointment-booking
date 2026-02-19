@@ -81,3 +81,5 @@ end
 group :development do
   gem "web-console"
 end
+
+gem 'appointment_guard', path: '../appointment_guard'

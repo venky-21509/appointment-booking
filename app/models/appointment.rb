@@ -1,22 +1,26 @@
-  require "csv"
+
+require "csv"
+
 class Appointment < ApplicationRecord
-
-  PACKAGE_OPTIONS = ["Basic", "Silver", "Gold", "Diamond", "Premium"].freeze
-  PROVIDER_OPTIONS = ["Provider A", "Provider B", "Provider C", "Provider X"].freeze
-
   include AASM
+  include AppointmentGuard::Validator
 
   mount_uploader :attachment, AttachmentUploader
 
-  before_validation :generate_unique_id, on: :create
+  PACKAGE_OPTIONS  = ["Basic", "Silver", "Gold", "Diamond", "Premium"].freeze
+  PROVIDER_OPTIONS = ["Provider A", "Provider B", "Provider C", "Provider X"].freeze
 
-  validates :time, presence: true 
-
-  validates :package, presence: true, inclusion: { in: PACKAGE_OPTIONS  }
-  validates :provider, presence: true, inclusion: { in: PROVIDER_OPTIONS }
-  validates :unique_id, presence: true, uniqueness: true 
-  validates :status, presence: true 
+  before_validation :generate_unique_id, on: :create 
   
+  before_validation :normalize_time 
+
+  validates :time, presence: true
+  validates :package, presence: true, inclusion: { in: PACKAGE_OPTIONS }
+  validates :provider, presence: true, inclusion: { in: PROVIDER_OPTIONS }
+  validates :unique_id, presence: true, uniqueness: true
+  validates :status, presence: true
+
+  validate :prevent_time_conflict
 
   aasm column: :status do
     state :new, initial: true
@@ -43,38 +47,43 @@ class Appointment < ApplicationRecord
   end
 
   scope :search, ->(query) {
-    where("unique_id LIKE :q OR provider LIKE :q OR package LIKE :q OR status LIKE :q", q: "%#{query}%")
+    where(
+      "unique_id LIKE :q OR provider LIKE :q OR package LIKE :q OR status LIKE :q",
+      q: "%#{query}%"
+    )
   }
 
-  # after_create_commit :send_appointment_created_email
-
-  # private
-
-  # def send_appointment_created_email
-  #   AppointmentMailer
-  #     .with(appointment: self)
-  #     .appointment_created
-  #     .deliver_later
-  # end
-  
-
-
   def self.to_csv
-    attributes = %w[id unique_id time status package provider created_at ]
+    attributes = %w[id unique_id time status package provider created_at]
 
-    CSV.generate(headers: true) do | csv |
-      csv << attributes 
-      all.find_each do |appointment|
-        csv << attributes.map { |attr| appointment.send(attr)}
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      find_each do |appointment|
+        csv << attributes.map { |attr| appointment.public_send(attr) }
       end
     end
   end
 
-private
+
+  def prevent_time_conflict
+    validate_time_conflict(
+      record: self,
+      start_time: time,
+      scope: Appointment.where(provider: provider).where.not(id: id)
+    )
+  end
+
+  private
 
   def generate_unique_id
     self.unique_id ||= "APT-#{SecureRandom.hex(4).upcase}"
   end
-
-
 end
+
+def normalize_time
+  return if time.blank?
+
+  rounded_minutes = (time.min / 30) * 30
+  self.time = time.change(min: rounded_minutes, sec: 0)
+end
+
