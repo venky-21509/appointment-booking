@@ -30,11 +30,13 @@ class AppointmentsController < ApplicationController
 
   def create
   @appointment = Appointment.new(appointment_params)
+  @appointment.customer = current_customer
 
   begin
     if @appointment.save
-      AppointmentWorker.perform_async(@appointment.id)
-      redirect_to appointments_path, notice: "Saved successfully"
+     # AppointmentWorker.perform_async(@appointment.id)
+     AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later 
+     redirect_to appointments_path, notice: "Saved successfully"
     else
       render :new, status: :unprocessable_entity
     end

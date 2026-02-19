@@ -321,8 +321,6 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    redis-client (0.26.2)
-      connection_pool
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -387,12 +385,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sidekiq (7.3.10)
-      base64
-      connection_pool (>= 2.3.0, < 3)
-      logger
-      rack (>= 2.2.4, < 3.3)
-      redis-client (>= 0.23.0, < 1)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -473,7 +465,6 @@ DEPENDENCIES
   brakeman
   capybara
   carrierwave (= 2.1.1)
-  connection_pool (~> 2.5)
   debug
   devise (~> 4.9)
   factory_bot_rails
@@ -490,7 +481,6 @@ DEPENDENCIES
   rspec-rails
   rubocop-rails-omakase
   selenium-webdriver
-  sidekiq (~> 7.3)
   solid_cable
   solid_cache
   solid_queue

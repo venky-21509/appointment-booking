@@ -2,6 +2,9 @@
 require "csv"
 
 class Appointment < ApplicationRecord
+
+  belongs_to :customer 
+  
   include AASM
   include AppointmentGuard::Validator
 

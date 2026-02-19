@@ -56,8 +56,8 @@ Rails.application.configure do
   # -------------------------------------
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
-
+  config.action_mailer.default_url_options = { host: "appointment-booking-yr62.onrender.com" }
+ config.action_mailer.delivery_method = :test
   # Enable locale fallbacks for I18n.
   config.i18n.fallbacks = true
 
