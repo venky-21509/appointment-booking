@@ -14,6 +14,8 @@ module Api
     end
 
     def create
+      # Temporarily allowing customer_id or defaulting to first customer for API testing purposes
+      # In production, use Devise Token Auth headers to identify current_customer
       appointment = Appointment.new(appointment_params)
 
       if appointment.save
@@ -46,7 +48,7 @@ module Api
 
     def appointment_params
       params.require(:appointment)
-            .permit(:time, :package, :provider, :attachment)
+            .permit(:time, :package, :provider, :attachment, :customer_id)
     end
    end
 end

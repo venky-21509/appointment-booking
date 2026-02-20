@@ -17,7 +17,7 @@ class Appointment < ApplicationRecord
   
   before_validation :normalize_time 
 
-  validates :time, presence: true
+  validates :time, presence: true, uniqueness: { scope: :provider, message: "slot already booked" }
   validates :package, presence: true, inclusion: { in: PACKAGE_OPTIONS }
   validates :provider, presence: true, inclusion: { in: PROVIDER_OPTIONS }
   validates :unique_id, presence: true, uniqueness: true
@@ -67,7 +67,6 @@ class Appointment < ApplicationRecord
     end
   end
 
-
   def prevent_time_conflict
     validate_time_conflict(
       record: self,
@@ -81,12 +80,12 @@ class Appointment < ApplicationRecord
   def generate_unique_id
     self.unique_id ||= "APT-#{SecureRandom.hex(4).upcase}"
   end
-end
 
-def normalize_time
-  return if time.blank?
+  def normalize_time
+    return if time.blank?
 
-  rounded_minutes = (time.min / 30) * 30
-  self.time = time.change(min: rounded_minutes, sec: 0)
+    rounded_minutes = (time.min / 30) * 30
+    self.time = time.change(min: rounded_minutes, sec: 0)
+  end
 end
 

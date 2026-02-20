@@ -26,12 +26,24 @@
   <body>
     <header class="navbar">
       <h2> Appointment Booking </h2>
+      <div class="auth-links">
+        <% if customer_signed_in? %>
+          <span>Welcome, <%= current_customer.email %></span>
+          <%= button_to "Logout", destroy_customer_session_path, method: :delete, class: "btn" %>
+        <% else %>
+          <%= link_to "Login", new_customer_session_path, class: "btn" %>
+          <%= link_to "Sign Up", new_customer_registration_path, class: "btn" %>
+        <% end %>
+      </div>
     </header>
 
     <main class="container">
+      <% flash.each do |key, message| %>
+        <div class="flash <%= key %>"><%= message %></div>
+      <% end %>
       
       <%= yield %>
-    </main> 
+    </main>
 
   </body>
 </html>

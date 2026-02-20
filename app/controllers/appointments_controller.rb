@@ -1,25 +1,22 @@
 class AppointmentsController < ApplicationController
-  before_action :authenticate_customer!
   before_action :set_appointment, only: [:show, :edit, :update, :destroy,
                                          :confirm, :complete, :receive, :cancel]
 
- def index
-  @appointments = Appointment.order(created_at: :desc)
-  @appointments = @appointments.search(params[:search]) if params[:search].present?
+  def index
+    @appointments = current_customer.appointments.order(created_at: :desc)
+    @appointments = @appointments.search(params[:search]) if params[:search].present?
   
-  respond_to do |format| 
-    format.html do 
-  @appointments = @appointments.page(params[:page]).per(5)
-      
-    end
+    respond_to do |format| 
+      format.html do 
+        @appointments = @appointments.page(params[:page]).per(5)
+      end
     
-    format.csv do 
-      send_data @appointments.to_csv, 
-               filename: "appointments-#{Date.today}.csv"
+      format.csv do 
+        send_data @appointments.to_csv, 
+                 filename: "appointments-#{Date.today}.csv"
+      end
     end
   end
-
- end
 
   def show
   end
@@ -29,24 +26,15 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-  
     @appointment = current_customer.appointments.build(appointment_params)
 
-  begin
     if @appointment.save
       AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later 
       redirect_to appointments_path, notice: "Saved successfully"
     else
       render :new, status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotUnique
-    @appointment.errors.add(:time, "slot already booked")
-    render :new, status: :unprocessable_entity
   end
-end
-
-    
-
 
   def edit
   end
@@ -88,7 +76,7 @@ end
   private
 
   def set_appointment
-    @appointment = Appointment.find(params[:id])
+    @appointment = current_customer.appointments.find(params[:id])
   end
 
   def appointment_params
