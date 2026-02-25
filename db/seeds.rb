@@ -8,16 +8,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-require 'faker'
 
-5.times do 
-  Appointment.create(
- time: Faker::Time.between(from: 1.month.ago, to: Time.now),
- status: ["New","confirmed","completed","recieved","cancelled"].sample,
- package: ["Basic","Silver","Gold","Diamond","Premium"].sample,
- provider: ["Provider A","Provider B","Provider C","Provider X"].sample,
- #unique_id: Faker::Internet.unique.uuid 
+#AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-  )
-end 
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.find_or_create_by!(email: 'admin@example.com') do |admin|
+  admin.password = 'password'
+  admin.password_confirmation = 'password'
+end
