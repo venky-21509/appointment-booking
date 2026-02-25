@@ -113,11 +113,25 @@ body {
   display: inline-block;
 }
 
-.status.new { background: #6c757d; }
-.status.confirmed { background: #007bff; }
-.status.completed { background: #28a745; }
-.status.received { background: #17a2b8; }
-.status.cancelled { background: #dc3545; }
+.status.new {
+  background: #6c757d;
+}
+
+.status.confirmed {
+  background: #007bff;
+}
+
+.status.completed {
+  background: #28a745;
+}
+
+.status.received {
+  background: #17a2b8;
+}
+
+.status.cancelled {
+  background: #dc3545;
+}
 
 /* Buttons */
 button,
@@ -179,6 +193,13 @@ input:focus,
 select:focus {
   outline: none;
   border-color: #2c3e50;
+}
+
+input.modern-datetime {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 /* Pagination */

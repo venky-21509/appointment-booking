@@ -1,6 +1,22 @@
 ActiveAdmin.register Appointment do
   permit_params :time, :status, :package, :provider, :unique_id, :attachment, :customer_id
 
+  # Customize the form so the Date/Time picker looks modern and other fields are neat
+  form do |f|
+    f.semantic_errors # shows errors on form
+    f.inputs "Appointment Details" do
+      f.input :customer
+      # Use HTML5 datetime-local for a modern pop-up calendar and time selector
+      f.input :time, as: :string, input_html: { type: 'datetime-local', value: f.object.time&.strftime('%Y-%m-%dT%H:%M') }
+      f.input :provider, as: :select, collection: Appointment::PROVIDER_OPTIONS
+      f.input :package, as: :select, collection: Appointment::PACKAGE_OPTIONS
+      # It's better to render status as a dropdown matching your AASM states
+      f.input :status, as: :select, collection: Appointment.aasm.states.map(&:name).map(&:to_s)
+      f.input :attachment, as: :file
+    end
+    f.actions
+  end
+
   # Add custom action buttons on the index page
   index do
     selectable_column
@@ -25,7 +41,7 @@ ActiveAdmin.register Appointment do
     end
   end
 
-  # Define the actual routes and actions for those buttons
+  
   member_action :confirm, method: [:get, :put] do
     if resource.may_confirm?
       resource.confirm!
