@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_customer!, unless: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    appointments_path
+    if resource.is_a?(AdminUser)
+      admin_root_path
+    else
+      appointments_path
+    end
   end
 end

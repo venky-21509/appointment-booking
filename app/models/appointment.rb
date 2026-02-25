@@ -8,6 +8,14 @@ class Appointment < ApplicationRecord
   include AASM
   include AppointmentGuard::Validator
 
+  def self.ransackable_associations(auth_object = nil)
+    ["customer"]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["attachment", "created_at", "customer_id", "id", "package", "provider", "status", "time", "unique_id", "updated_at"]
+  end
+
   mount_uploader :attachment, AttachmentUploader
 
   PACKAGE_OPTIONS  = ["Basic", "Silver", "Gold", "Diamond", "Premium"].freeze
@@ -55,6 +63,7 @@ class Appointment < ApplicationRecord
       q: "%#{query}%"
     )
   }
+  
 
   def self.to_csv
     attributes = %w[id unique_id time status package provider created_at]

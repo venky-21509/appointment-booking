@@ -90,3 +90,6 @@ gem 'appointment_guard', git: 'https://github.com/venky-21509/appointment_guard.
 gem "net-smtp"
 gem "net-imap"
 gem "net-pop"
+gem "activeadmin", "~> 3.4"
+
+gem "dartsass-rails", "~> 0.5.1"
