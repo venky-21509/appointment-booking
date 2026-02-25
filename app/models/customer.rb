@@ -1,8 +1,7 @@
 class Customer < ApplicationRecord
 
   has_many :appointments
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -13,4 +12,11 @@ class Customer < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     ["created_at", "date", "email", "first_name", "gender", "id", "last_name", "mobile", "updated_at"]
   end
-end
+
+  def to_s
+    full_name = "#{first_name} #{last_name}".strip
+    full_name.present? ? full_name : email
+  end
+
+end 
+
