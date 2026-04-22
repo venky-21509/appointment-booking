@@ -71,7 +71,9 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autnocorrect_after_generate!
   # 
   
-  config.action_mailer.delivery_method = :letter_opener 
+  # Since you are running WSL, letter_opener will crash trying to open a browser.
+  # We use :file instead. Emails will be saved nicely in the `tmp/mails` folder!
+  config.action_mailer.delivery_method = :file
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
