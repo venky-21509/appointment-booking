@@ -26,14 +26,19 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @appointment = current_customer.appointments.build(appointment_params)
+    Appointment.transaction do
+      @appointment = current_customer.appointments.build(appointment_params)
 
-    if @appointment.save
-      AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later 
-      redirect_to appointments_path, notice: "Saved successfully"
-    else
-      render :new, status: :unprocessable_entity
+      if @appointment.save
+        AppointmentMailer.with(appointment: @appointment).appointment_created.deliver_later
+        redirect_to appointments_path, notice: "Saved successfully"
+      else
+        render :new, status: :unprocessable_entity
+      end
     end
+  rescue ActiveRecord::RecordNotUnique
+    flash[:alert] = "This time slot is already booked. Please choose another."
+    render :new, status: :unprocessable_entity
   end
 
   def edit
@@ -41,9 +46,9 @@ class AppointmentsController < ApplicationController
 
   def update
     if @appointment.update(appointment_params)
-      redirect_to appointments_path, notice: "updated successfully"
+      redirect_to appointments_path, notice: "updated successfully", status: :see_other
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

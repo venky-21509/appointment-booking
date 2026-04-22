@@ -1,5 +1,5 @@
 class AppointmentMailer < ApplicationMailer
-  default from: "venkeypothem21@gmail.com"  
+  default from: ENV.fetch("MAILER_FROM", "venkeypothem21@gmail.com")  
   
   def appointment_created
     @appointment = params[:appointment] 

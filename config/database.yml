@@ -6,15 +6,15 @@ default: &default
 development:
   <<: *default
   database: appointment_booking_development
-  username: venkey
-  password: 9014300387
+  username: <%= ENV.fetch("DB_USERNAME", "venkey") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "venkey123") %>
   host: 127.0.0.1
 
 test:
   <<: *default
   database: appointment_booking_test
-  username: venkey
-  password: 9014300387
+  username: <%= ENV.fetch("DB_USERNAME", "venkey") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "9014300387") %>
   host: 127.0.0.1
 
 production:

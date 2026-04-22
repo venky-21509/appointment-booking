@@ -50,8 +50,10 @@ Rails.application.configure do
 
   # 3. Solid Cable
  config.action_cable.mount_path = nil
-  config.action_cable.url = nil
-  config.action_cable.allowed_request_origins = [ /http.*/ ]
+ config.action_cable.url = nil
+ config.action_cable.allowed_request_origins = [
+   'https://appointment-booking-yr62.onrender.com'
+ ]
 
   # -------------------------------------
 

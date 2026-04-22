@@ -32,6 +32,7 @@ class Appointment < ApplicationRecord
   validates :status, presence: true
 
   validate :prevent_time_conflict
+  validate :time_must_be_in_future
 
   aasm column: :status do
     state :new, initial: true
@@ -59,7 +60,7 @@ class Appointment < ApplicationRecord
 
   scope :search, ->(query) {
     where(
-      "unique_id LIKE :q OR provider LIKE :q OR package LIKE :q OR status LIKE :q",
+      "unique_id ILIKE :q OR provider ILIKE :q OR package ILIKE :q OR status ILIKE :q",
       q: "%#{query}%"
     )
   }
@@ -95,6 +96,11 @@ class Appointment < ApplicationRecord
 
     rounded_minutes = (time.min / 30) * 30
     self.time = time.change(min: rounded_minutes, sec: 0)
+  end
+
+  def time_must_be_in_future
+    return if time.blank?
+    errors.add(:time, "must be in the future") if time < Time.current
   end
 end
 
