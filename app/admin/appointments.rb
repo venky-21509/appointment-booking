@@ -1,3 +1,5 @@
+
+
 ActiveAdmin.register Appointment do
   permit_params :time, :status, :package, :provider, :unique_id, :attachment, :customer_id
 
