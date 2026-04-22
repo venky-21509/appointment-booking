@@ -1,15 +1,17 @@
-<% if appointment.may_confirm? %>
-  <%= button_to "Confirm", confirm_appointment_path(appointment), method: :patch %><br>
-<% end %>
+<div style="display: flex; gap: 8px; flex-wrap: wrap;">
+  <% if appointment.may_confirm? %>
+    <%= button_to "Confirm", confirm_appointment_path(appointment), method: :patch, class: "btn", style: "padding: 6px 12px; font-size: 12px; background: #E0E7FF; color: #3730A3;" %>
+  <% end %>
 
-<% if appointment.may_complete? %>
-  <%= button_to "Complete", complete_appointment_path(appointment), method: :patch %><br>
-<% end %>
+  <% if appointment.may_complete? %>
+    <%= button_to "Complete", complete_appointment_path(appointment), method: :patch, class: "btn", style: "padding: 6px 12px; font-size: 12px; background: #DEF7EC; color: #03543F;" %>
+  <% end %>
 
-<% if appointment.may_receive? %>
-  <%= button_to "Receive", receive_appointment_path(appointment), method: :patch %><br>
-<% end %>
+  <% if appointment.may_receive? %>
+    <%= button_to "Receive", receive_appointment_path(appointment), method: :patch, class: "btn", style: "padding: 6px 12px; font-size: 12px; background: #E1EFFE; color: #1E429F;" %>
+  <% end %>
 
-<% if appointment.may_cancel? %>
-  <%= button_to "Cancel", cancel_appointment_path(appointment), method: :patch, data: { confirm: "Are you sure?" } %>
-<% end %>
+  <% if appointment.may_cancel? %>
+    <%= button_to "Cancel", cancel_appointment_path(appointment), method: :patch, data: { confirm: "Are you sure?" }, class: "btn", style: "padding: 6px 12px; font-size: 12px; background: #FDE8E8; color: #9B1C1C;" %>
+  <% end %>
+</div>

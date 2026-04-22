@@ -28,7 +28,7 @@
       <h2> Appointment Booking </h2>
       <div class="auth-links">
         <% if customer_signed_in? %>
-          <span>Welcome, <%= current_customer.email %></span>
+          <span>Welcome, <%= current_customer.to_s %></span>
           <%= button_to "Logout", destroy_customer_session_path, method: :delete, class: "btn" %>
         <% else %>
           <%= link_to "Login", new_customer_session_path, class: "btn" %>

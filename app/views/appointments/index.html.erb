@@ -1,77 +1,86 @@
-<h1> Appointments </h1><br>
-<%= form_with url: appointments_path, method: :get, local: true do %>
-<%= text_field_tag :search, params[:search], placeholder: "Search by Unique ID/ Provider / Package / Status" %>
-<%= submit_tag "Search" %>
-<% end %><br>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+  <h2 style="margin: 0; font-size: 1.8rem; font-weight: 600;">Welcome, <%= current_customer.to_s %></h2>
+  <%= link_to "+ New Appointment", new_appointment_path, class: "btn" %>
+</div>
 
+<div class="card">
+  <h3>Your Profile Details</h3>
+  <table class="profile-table">
+    <tr>
+      <td>Name</td>
+      <td><%= current_customer.to_s %></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><%= current_customer.email %></td>
+    </tr>
+    <tr>
+      <td>Mobile</td>
+      <td><%= current_customer.mobile.presence || "Not Provided" %></td>
+    </tr>
+    <tr>
+      <td>Member Since</td>
+      <td><%= current_customer.created_at.strftime("%B %d, %Y") %></td>
+    </tr>
+  </table>
+</div>
 
-
-<div> <%= link_to "New Appointment", new_appointment_path  %> </div> <br>
-
-
-
-<table class="appointments-table" >
-
-    <thead>
-        <tr>
-            <th>S.No </th>
-            <th> Date & Time </th>
-            <th> Status </th>
-            <th>  Package </th>
-            <th> Provider </th>
-            <th> Unique_id </th>
-            <th> Actions </th>
-
-            </tr>
-            </thead>
-
-            <tbody> 
-
-         <% @appointments.each_with_index do |p, index| %>
-         <tr>
-            <td><%= index+1 %> </td>
-
-            <td class="date-time">
-  <%= p.time.strftime("%d %b %Y, %I:%M %p") if p.time.present? %>
-</td>
-
-
-            <td><%= render "status", appointment: p %></td>
-          
-            <td><%= p.package %> </td>   
-            <td><%= p.provider%> </td> 
-            <td><%= p.unique_id %> </td>   
-
-            <td>
-  <%= link_to "View", appointment_path(p) %> |
-  <%= link_to "Edit", edit_appointment_path(p) %> <br>
-
-
-
-
-  <%= render "status_actions", appointment: p %><br>
-
+<div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+  <h3 style="margin: 0; font-size: 1.5rem;">Your Appointments</h3>
   
+  <%= link_to "Download CSV", appointments_path(format: :csv), class: "btn btn-success" %>
+</div>
 
-  <%= button_to "Delete", appointment_path(p),
-        method: :delete,
-        data: { confirm: "Are you sure?" } %>
-       </td>
+<%= form_with url: appointments_path, method: :get, local: true, class: "search-form" do %>
+  <div>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by ID, Provider..." %>
+  </div>
+  <%= submit_tag "Search", class: "btn btn-secondary" %>
+<% end %>
 
-         </tr>
-            <% end %> 
-            
-
-            </tbody> 
-
-</table><br>
-
-
-
-<%= link_to "Download CSV", appointments_path(format: :csv), class: "btn btn-css" %> <br>
-
+<div class="table-responsive">
+  <table class="appointments-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Date & Time</th>
+        <th>Status</th>
+        <th>Package</th>
+        <th>Provider</th>
+        <th>Unit ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @appointments.each_with_index do |p, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td class="date-time">
+            <%= p.time.strftime("%d %b %Y, %I:%M %p") if p.time.present? %>
+          </td>
+          <td><%= render "status", appointment: p %></td>
+          <td><%= p.package %></td>
+          <td><%= p.provider %></td>
+          <td><span style="font-family: monospace; color: var(--text-muted);"><%= p.unique_id %></span></td>
+          <td class="action-links">
+            <%= link_to "View", appointment_path(p) %>
+            <span style="color:#d1d5db;">|</span>
+            <%= link_to "Edit", edit_appointment_path(p) %>
+            <div style="width: 100%; height: 4px;"></div>
+            <%= render "status_actions", appointment: p %>
+            <%= button_to "Delete", appointment_path(p), method: :delete, data: { confirm: "Are you sure?" }, class: "btn-danger", style: "padding: 6px 12px; font-size: 12px;" %>
+          </td>
+        </tr>
+      <% end %>
+      <% if @appointments.empty? %>
+        <tr>
+          <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 30px;">
+            No appointments found.
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= paginate @appointments %>
-
-
-

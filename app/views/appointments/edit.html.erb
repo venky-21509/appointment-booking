@@ -1,3 +1,9 @@
-<h1>Editing Appointment</h1>
-<%= render "form",appointment: @appointment %>
-<%= link_to "Back",appointments_path %>
+<div style="max-width: 600px; margin: 40px auto; padding: 0 15px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <h2 style="margin: 0; font-size: 1.8rem; font-weight: 600;">Edit Appointment</h2>
+    <%= link_to "← Back", appointments_path, class: "btn btn-secondary", style: "padding: 6px 12px; font-size: 14px;" %>
+  </div>
+
+  <% content_for :button_text, "Update Appointment" %>
+  <%= render "form", appointment: @appointment %>
+</div>

@@ -1,44 +1,51 @@
-<%= form_with(model: @appointment, local: true, html: { multipart: true }) do |f| %>
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+  <%= form_with(model: @appointment, local: true, html: { multipart: true }) do |f| %>
 
-  <% if @appointment.errors.any? %>
-    <div style="color: red;">
-      <ul>
-        <% @appointment.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+    <% if @appointment.errors.any? %>
+      <div class="flash alert">
+        <ul style="margin: 0; padding-left: 20px;">
+          <% @appointment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :time, "Date & Time" %>
+      <%= f.datetime_field :time, 
+          min: Time.current.strftime("%Y-%m-%dT%H:%M"), 
+          step: 1800, 
+          class: "modern-datetime" %>
     </div>
+
+    <div>
+      <%= f.label :package %>
+      <%= f.select :package,
+          Appointment::PACKAGE_OPTIONS,
+          prompt: "Select Package" %>
+    </div>
+
+    <div>
+      <%= f.label :provider %>
+      <%= f.select :provider,
+          Appointment::PROVIDER_OPTIONS,
+          prompt: "Select Provider" %>
+    </div>
+
+    <div>
+      <%= f.label :attachment %>
+      <div style="border: 1px dashed var(--border-color); padding: 15px; border-radius: 8px; background: #fafafa;">
+        <%= f.file_field :attachment, style: "border: none; padding: 0; background: transparent; width: 100%;" %>
+      </div>
+    </div>
+
+    <div style="margin-top: 30px; margin-bottom: 0;">
+      <%= f.submit yield(:button_text) || "Save Appointment", class: "btn btn-primary", style: "width: 100%;" %>
+      <div style="text-align: center; margin-top: 15px;">
+        <%= link_to "Cancel", appointments_path, style: "color: var(--text-muted); text-decoration: none; font-size: 14px;" %>
+      </div>
+    </div>
+
   <% end %>
-
-  <div>
-    <%= f.label :time, "Date & Time" %><br>
-    <%= f.datetime_field :time, 
-        min: Time.current.strftime("%Y-%m-%dT%H:%M"), 
-        step: 1800, 
-        class: "modern-datetime" %>
-  </div>
-
-  <div>
-    <%= f.label :package %><br>
-    <%= f.select :package,
-        Appointment::PACKAGE_OPTIONS,
-        prompt: "Select Package" %>
-  </div>
-
-  <div>
-    <%= f.label :provider %><br>
-    <%= f.select :provider,
-        Appointment::PROVIDER_OPTIONS,
-        prompt: "Select Provider" %>
-  </div>
-
-  <div>
-    <%= f.label :attachment %><br>
-    <%= f.file_field :attachment %>
-  </div>
-
-  <br>
-  <%= f.submit "Create Appointment" %>
-
-<% end %>
-  
+</div>
