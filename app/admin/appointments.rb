@@ -23,6 +23,7 @@ ActiveAdmin.register Appointment do
   index do
     selectable_column
     id_column
+    column "Unique ID", :unique_id
     column :customer
     column :time
     column :provider
@@ -32,13 +33,13 @@ ActiveAdmin.register Appointment do
     end
     actions defaults: true do |appointment|
       if appointment.may_confirm?
-        item "Confirm", confirm_admin_appointment_path(appointment), class: "member_link"
+        item "Confirm", confirm_admin_appointment_path(appointment), class: "btn-confirm"
       end
       if appointment.may_complete?
-        item "Complete", complete_admin_appointment_path(appointment), class: "member_link"
+        item "Complete", complete_admin_appointment_path(appointment), class: "btn-complete"
       end
       if appointment.may_cancel?
-        item "Cancel", cancel_admin_appointment_path(appointment), class: "member_link"
+        item "Cancel", cancel_admin_appointment_path(appointment), class: "btn-cancel"
       end
     end
   end
